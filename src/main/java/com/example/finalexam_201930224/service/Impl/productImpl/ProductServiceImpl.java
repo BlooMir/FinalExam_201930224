@@ -33,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
         Product saveProduct = productDAO.insertProduct(product);
 
         ProductResponseDTO productResponseDto = new ProductResponseDTO();
+
         productResponseDto.setName(saveProduct.getName());
         productResponseDto.setNumber(saveProduct.getNumber());
         productResponseDto.setPrice(saveProduct.getPrice());
