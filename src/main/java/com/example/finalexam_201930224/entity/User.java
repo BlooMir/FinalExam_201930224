@@ -1,4 +1,4 @@
-package com.example.finalexam_201930224.User;
+package com.example.finalexam_201930224.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

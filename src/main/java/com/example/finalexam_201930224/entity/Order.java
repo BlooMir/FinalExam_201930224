@@ -1,4 +1,4 @@
-package com.example.finalexam_201930224.Order;
+package com.example.finalexam_201930224.entity;
 
 import lombok.*;
 
