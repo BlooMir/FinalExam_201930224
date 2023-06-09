@@ -1,4 +1,4 @@
-package com.example.finalexam_201930224.service.Impl;
+package com.example.finalexam_201930224.service.Impl.userImpl;
 
 import com.example.finalexam_201930224.Repository.UserRepository;
 import com.example.finalexam_201930224.dto.user.CommonResponse;
@@ -44,7 +44,7 @@ public class SignServiceImpl implements SignService {
                     .name(name)
                     .email(email)
                     .password(passwordEncoder.encode(password))
-                    .roles(Collections.singletonList("ROLE_ADMIN")).build();
+                    .roles(Collections.singletonList("ROLE_USER")).build();
         }
         User savedUser = userRepository.save(user);
         SignUpResultDTO signUpResultDTO = new SignUpResultDTO();
