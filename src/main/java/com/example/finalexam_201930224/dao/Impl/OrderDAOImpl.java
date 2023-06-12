@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class OrderDAOImpl implements OrderDAO {
@@ -29,16 +28,23 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void minusProductStock(long productId) {
-        Product product = productRepository.findByNumber(productId);
-        int minusProductStock = product.getStock() - 1;
-        product.setStock(minusProductStock);
+    public Product productByProductName(Long productId) {
+        return productRepository.getReferenceById(productId);
     }
+
+//    @Override
+//    public long minusProductStock(long productId) {
+//        Product product = productRepository.findByNumber(productId);
+//        int minusProductStock = product.getStock() - 1;
+//        product.setStock(minusProductStock);
+//    }
 
     @Override
     public List<Order> AllOrderList() {
         return orderRepository.findAll();
     }
+
+
 
     @Override
     public Order orderListByUserId(Long userId) {

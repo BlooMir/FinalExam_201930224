@@ -62,7 +62,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<Product> listProductByName(String name) {
+    public List<Product> ProductByName(String name) {
         return productRepository.findAllByName(name);
     }
     @Override

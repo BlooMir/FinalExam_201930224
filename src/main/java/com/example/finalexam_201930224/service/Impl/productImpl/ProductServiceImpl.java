@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> listProductFindByName(String name) {
-        return productDAO.listProductByName(name);
+    public List<Product> ProductFindByName(String name) {
+        return productDAO.ProductByName(name);
     }
 }

@@ -18,7 +18,7 @@ public interface ProductService {
 
     List<Product> listProductAllOrderByPriceDesc();
 
-    List<Product> listProductFindByName(String name);
+    List<Product> ProductFindByName(String name);
 
     ProductResponseDTO getProduct(Long number);
 }

@@ -2,14 +2,20 @@ package com.example.finalexam_201930224.controller;
 
 import com.example.finalexam_201930224.dto.order.OrderDTO;
 import com.example.finalexam_201930224.dto.order.OrderResponseDTO;
+import com.example.finalexam_201930224.dto.product.ProductDTO;
+import com.example.finalexam_201930224.dto.product.ProductResponseDTO;
 import com.example.finalexam_201930224.entity.Order;
+import com.example.finalexam_201930224.entity.Product;
+import com.example.finalexam_201930224.entity.User;
 import com.example.finalexam_201930224.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,9 +31,20 @@ public class OrderController {
 
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<OrderResponseDTO> createOrder(@RequestBody OrderDTO orderDTO){
-        OrderResponseDTO orderResponseDTO = orderService.saveOrder(orderDTO);
-        return ResponseEntity.status(HttpStatus.OK).body(orderResponseDTO);
+    public ResponseEntity<OrderResponseDTO> createOrder(Principal principal, Long productId, String userName) {
+
+        ProductResponseDTO productResponseDTO = orderService.productByProductName(productId);
+        OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
+
+        orderResponseDTO.setProductId(productResponseDTO.getNumber());
+        orderResponseDTO.setProductName(productResponseDTO.getName());
+        orderResponseDTO.setUserId(principal.getName());
+        orderResponseDTO.setUserName(userName);
+        orderResponseDTO.setPrice(productResponseDTO.getPrice());
+
+        OrderResponseDTO newOrderResponseDTO = orderService.saveOrder(orderResponseDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(newOrderResponseDTO);
     }
 
     @GetMapping("/list")

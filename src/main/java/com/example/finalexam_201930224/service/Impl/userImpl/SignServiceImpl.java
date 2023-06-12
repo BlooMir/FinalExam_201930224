@@ -64,7 +64,7 @@ public class SignServiceImpl implements SignService {
         }
         SignInResultDTO signInResultDTO = SignInResultDTO.builder()
                 .token(jwtTokenProvider.createToken(
-                        String.valueOf(user.getUid()), user.getRoles())).build();
+                        String.valueOf(user.getUid()), user.getRoles(), user.getName())).build();
         setSuccessResult(signInResultDTO);
 
         return signInResultDTO;

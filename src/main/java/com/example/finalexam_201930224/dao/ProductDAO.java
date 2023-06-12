@@ -17,6 +17,6 @@ public interface ProductDAO {
 
     List<Product> listProductAllOrderByPriceDesc();
 
-    List<Product> listProductByName(String name);
+    List<Product> ProductByName(String name);
 
 }

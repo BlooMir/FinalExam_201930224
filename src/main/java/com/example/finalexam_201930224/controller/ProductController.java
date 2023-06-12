@@ -56,7 +56,7 @@ public class ProductController {
 
     @GetMapping("/byName")
     public List<Product> listProductByName(String name){
-        return productService.listProductFindByName(name);
+        return productService.ProductFindByName(name);
     }
 
     @GetMapping("/")
