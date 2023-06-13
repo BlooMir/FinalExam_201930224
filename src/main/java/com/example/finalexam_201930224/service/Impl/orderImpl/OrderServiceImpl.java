@@ -83,5 +83,8 @@ public class OrderServiceImpl implements OrderService {
     public Order orderListByOrderId(Long orderId) {
         return orderDAO.orderListByOrderId(orderId);
     }
-
+    @Override
+    public void minusProductStock(Long productID) {
+        orderDAO.minusProductStock(productID);
+    }
 }

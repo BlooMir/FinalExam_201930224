@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface OrderDAO {
     Order insertOrder(Order order);
-//    void minusProductStock(long productId);
+
+    void minusProductStock(Long productId);
 
     List<Order> AllOrderList();
 

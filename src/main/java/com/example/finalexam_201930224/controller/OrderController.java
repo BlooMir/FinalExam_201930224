@@ -31,38 +31,49 @@ public class OrderController {
 
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<OrderResponseDTO> createOrder(Principal principal, Long productId, String userName) {
+    public ResponseEntity<OrderResponseDTO> createOrder(Principal principal, Long productId, String userName) throws Exception{
 
         ProductResponseDTO productResponseDTO = orderService.productByProductName(productId);
         OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
 
-        orderResponseDTO.setProductId(productResponseDTO.getNumber());
-        orderResponseDTO.setProductName(productResponseDTO.getName());
-        orderResponseDTO.setUserId(principal.getName());
-        orderResponseDTO.setUserName(userName);
-        orderResponseDTO.setPrice(productResponseDTO.getPrice());
+        if(productResponseDTO.getStock() <= 0){
+            throw new Exception("재고 부족");
+        }
+        else {
+            orderService.minusProductStock(productId);
 
-        OrderResponseDTO newOrderResponseDTO = orderService.saveOrder(orderResponseDTO);
+            orderResponseDTO.setProductId(productResponseDTO.getNumber());
+            orderResponseDTO.setProductName(productResponseDTO.getName());
+            orderResponseDTO.setUserId(principal.getName());
+            orderResponseDTO.setUserName(userName);
+            orderResponseDTO.setPrice(productResponseDTO.getPrice());
 
-        return ResponseEntity.status(HttpStatus.OK).body(newOrderResponseDTO);
+            OrderResponseDTO newOrderResponseDTO = orderService.saveOrder(orderResponseDTO);
+
+            return ResponseEntity.status(HttpStatus.OK).body(newOrderResponseDTO);
+        }
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Order> AllOrderList(){
         return orderService.AllOrderList();
     }
 
     @GetMapping("/listByUserId")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Order OrderListByUserId(Long userId) {
         return orderService.orderListByUserId(userId);
     }
 
     @GetMapping("/listByProductId")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Order OrderListByProductId(Long productId) {
         return orderService.orderListByProductId(productId);
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Order OrderListByOrderId(Long orderId) {
         return orderService.orderListByOrderId(orderId);
     }

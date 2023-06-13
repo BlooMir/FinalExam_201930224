@@ -32,19 +32,17 @@ public class OrderDAOImpl implements OrderDAO {
         return productRepository.getReferenceById(productId);
     }
 
-//    @Override
-//    public long minusProductStock(long productId) {
-//        Product product = productRepository.findByNumber(productId);
-//        int minusProductStock = product.getStock() - 1;
-//        product.setStock(minusProductStock);
-//    }
+    @Override
+    public void minusProductStock(Long productId) {
+        Product product = productRepository.getReferenceById(productId);
+        int minusProductStock = product.getStock() - 1;
+        product.setStock(minusProductStock);
+    }
 
     @Override
     public List<Order> AllOrderList() {
         return orderRepository.findAll();
     }
-
-
 
     @Override
     public Order orderListByUserId(Long userId) {

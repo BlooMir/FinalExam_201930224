@@ -14,6 +14,8 @@ public interface OrderService {
 
     ProductResponseDTO productByProductName(Long productId);
 
+    void minusProductStock(Long productID);
+
     List<Order> AllOrderList();
 
     Order orderListByUserId(Long userId);
